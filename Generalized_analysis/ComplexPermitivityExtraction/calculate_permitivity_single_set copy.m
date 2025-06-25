@@ -1,0 +1,31 @@
+syms epsilon sigma
+
+f=10.5e6;
+w = 2*pi*f;
+
+mu = 1.256637e-6;
+
+
+alpha = 2.125;
+
+beta = 1.2716;
+x = (mu*epsilon/2);
+
+% y = sqrt(1+(sigma/(w*epsilon))^2);
+
+z= sigma/(w*epsilon);
+
+y = 0.5*z^2 - 0.125*z^4 + (1/16)*z^6;
+
+% equ1 = [alpha == w *sqrt(x*(y-1))];
+equ1 = [alpha == w *sqrt(x*y)];
+
+equ2 = [beta == w *sqrt(x*(y+2))];
+
+s = vpasolve(equ1, equ2, [epsilon, sigma]);
+
+e = s.epsilon - 1j*(s.sigma/w);
+
+e = double(e)
+
+
